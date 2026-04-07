@@ -1,1 +1,1 @@
-# slots_machine_game
+# Slots Machine Game
