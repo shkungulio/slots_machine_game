@@ -26,11 +26,19 @@ symbol_value = {
     "D": 10
 }
 
+
 def check_winnings(columns, lines, bet, values):
+    """Calculate winnings and identify winning lines.
+
+    A line wins when all symbols across the columns match on that row.
+    Returns the total payout and a list of 1-based winning line numbers.
+    """
     winnings = 0
     winning_lines = []
+
     for line in range(lines):
         symbol = columns[0][line]
+
         for column in columns:
             symbol_to_check = column[line]
             if symbol != symbol_to_check:
@@ -38,10 +46,16 @@ def check_winnings(columns, lines, bet, values):
         else:
             winnings += values[symbol] * bet
             winning_lines.append(line + 1)
+
     return winnings, winning_lines
 
 
 def get_slot_machine_spin(rows, cols, symbols):
+    """Generate a randomized slot machine result.
+
+    Builds a set of symbols based on their frequency, then creates a list of
+    columns with randomly selected symbols for each row.
+    """
     all_symbols = []
     for symbol, symbol_count in symbols.items():
         for _ in range(symbol_count):
@@ -57,10 +71,12 @@ def get_slot_machine_spin(rows, cols, symbols):
             column.append(value)
 
         columns.append(column)
+
     return columns
 
 
 def print_slot_machine(columns):
+    """Print the slot machine columns in a readable grid format."""
     for row in range(len(columns[0])):
         for i, column in enumerate(columns):
             if i != len(columns) - 1:
@@ -71,6 +87,7 @@ def print_slot_machine(columns):
 
 
 def deposit():
+    """Prompt the user for a positive deposit amount."""
     while True:
         amount = input("\nHow much would you like to deposit? $")
         if amount.isdigit():
@@ -85,9 +102,11 @@ def deposit():
 
 
 def get_number_of_lines():
+    """Prompt the user for the number of active betting lines."""
     while True:
         lines = input(
-            "\nEnter the number of lines to bet on (1-" + str(MAX_LINES) + ")? ")
+            "\nEnter the number of lines to bet on (1-" + str(MAX_LINES) + ")? "
+        )
         if lines.isdigit():
             lines = int(lines)
             if 1 <= lines <= MAX_LINES:
@@ -100,6 +119,7 @@ def get_number_of_lines():
 
 
 def get_bet():
+    """Prompt the user for a per-line bet within the allowed range."""
     while True:
         amount = input("How much would you like to bet on each line? $")
         if amount.isdigit():
@@ -107,13 +127,18 @@ def get_bet():
             if MIN_BET <= amount <= MAX_BET:
                 break
             else:
-                print(f"Amount must be between ${MIN_BET} - ${MAX_BET}.")
+                print(f"Amount must be between ${MIN_BET:,.2f} - ${MAX_BET:,.2f}.")
         else:
             print("Please enter a number.")
     return amount
 
 
 def spin(balance):
+    """Run one round of the slot machine game.
+
+    Prompts for line count and bet size, checks affordability, generates the
+    spin result, prints the outcome, and returns the net balance change.
+    """
     lines = get_number_of_lines()
     while True:
         bet = get_bet()
@@ -121,16 +146,18 @@ def spin(balance):
 
         if total_bet > balance:
             print(
-                f"You do not have enough to bet that amount, your current balance is: ${balance}")
+                f"You do not have enough to bet that amount, your current balance is: ${balance:,.2f}"
+            )
         else:
             break
 
     print(
-        f"You are betting ${bet} on {lines} lines. Total bet is equal to: ${total_bet}")
+        f"You are betting ${bet:,.2f} on {lines} lines. Total bet is equal to: ${total_bet:,.2f}."
+    )
 
     slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
     print_slot_machine(slots)
     winnings, winning_lines = check_winnings(slots, lines, bet, symbol_value)
-    print(f"You won ${winnings}.")
+    print(f"You won ${winnings:,.2f}.")
     print(f"You won on lines:", *winning_lines)
     return winnings - total_bet

@@ -13,7 +13,7 @@ def app():
     """
     balance = utils.deposit()
     while True:
-        message = f"You current balance is ${balance}"
+        message = f"You current balance is ${balance:,.2f}\n"
         print(message)
         answer = input("Press enter to play (q to quit).")
         if answer == "q":
