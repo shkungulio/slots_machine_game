@@ -104,7 +104,3 @@ This starts the main loop defined in `app.app()`, which manages the deposit, rep
 - Support configurable symbol sets, paylines, and payout tables via a configuration file.
 - Implement a simple statistics screen (total spins, total winnings, max win, etc.).
 - Add tests for `check_winnings` and `get_slot_machine_spin` to ensure consistent behavior.
-
-<div align="center">⁂</div>
-
-
