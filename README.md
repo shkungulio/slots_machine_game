@@ -1,11 +1,11 @@
 # Slot Machine Game
 
-A simple command-line slot machine game where players deposit money, choose how many lines to bet on, and spin the reels to win or lose credits based on random outcomes.[^1][^2]
+A simple command-line slot machine game where players deposit money, choose how many lines to bet on, and spin the reels to win or lose credits based on random outcomes.
 
 ## Features
 
 - Text-based interactive interface in the terminal.
-- Customizable number of betting lines (1–3).[/file:2]
+- Customizable number of betting lines (1–3).
 - Configurable minimum and maximum bet per line.
 - Randomized 3x3 slot machine grid using weighted symbols.
 - Automatic calculation of winnings and display of winning lines.
