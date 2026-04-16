@@ -5,7 +5,7 @@ A simple slot machine game where players can deposit money, choose how many line
 
 import utils 
 
-def app():
+def main():
     """Run the main interactive game loop.
     Prompts the player for an initial deposit, repeatedly offers a chance to
     play a round, updates the balance after each spin, and exits when the user
@@ -22,4 +22,4 @@ def app():
     print(message)
 
 if __name__ == "__main__":
-    app()
+    main()
